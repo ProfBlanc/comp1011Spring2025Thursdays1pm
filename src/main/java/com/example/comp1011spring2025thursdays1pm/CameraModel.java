@@ -1,5 +1,7 @@
 package com.example.comp1011spring2025thursdays1pm;
 
+import java.util.Arrays;
+
 public class CameraModel {
 
     /*
@@ -23,14 +25,86 @@ public class CameraModel {
             resolution
      */
 
-    private String color;
-    private double resolution;
-    private float weight;
+    private String color = "black";
+    private double resolution = 1080;
+    private float weight = 100;
     enum Brands {CANON, NIKON, FUJIFILM, SONY}
     private Brands brand = Brands.CANON;
     //create the remaining instance variables.
     // create getters and setters
     // for String, float, and double values
     //      add restrictions
+    //create 2 constructors: default + & 5-arg constructor
 
+    enum Modes{LOW_LIGHT, NIGHT, AUTO, MANUAL, GREYSCALE}
+    private Modes mode = Modes.MANUAL;
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        if(color.length() < 3){
+            System.err.println("Color is too short");
+            throw new IllegalArgumentException("Color must have at least 3 characters");
+        }
+
+        if(!Arrays.asList("red,blue,green,white,grey,black".split(",")).contains(color.toLowerCase())){
+            throw new IllegalArgumentException("Color is not valid");
+        }
+
+        this.color = color;
+    }
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        if(weight < 100 || weight > 1000){
+            throw new IllegalArgumentException("Weight is not valid");
+        }
+        this.weight = weight;
+    }
+
+    public Modes getMode() {
+        return mode;
+    }
+
+    public void setMode(Modes mode) {
+        this.mode = mode;
+    }
+
+    public Brands getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brands brand) {
+        this.brand = brand;
+    }
+
+    public double getResolution() {
+
+        return resolution;
+    }
+
+    public void setResolution(double resolution) {
+        if(resolution < 1080 || resolution > 15000)
+            throw new IllegalArgumentException("Resolution is not valid");
+
+        this.resolution = resolution;
+    }
+
+    public CameraModel(String color, double resolution, float weight, Brands brand, Modes mode) {
+//        this.color = color;
+//        this.resolution = resolution;
+//        this.weight = weight;
+//        this.brand = brand;
+//        this.mode = mode;
+        setColor(color);
+        setResolution(resolution);
+        setWeight(weight);
+        setBrand(brand);
+        setMode(mode);
+    }
 }
